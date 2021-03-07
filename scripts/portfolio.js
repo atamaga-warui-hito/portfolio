@@ -24,10 +24,6 @@ function State(contentsList, stateEventHandler) {
             .then(response => {
                 return response.json()
             }).then(responseJSON => {
-                // let imageSource = "images/360x360.png"
-                // if (responseJSON.hasOwnProperty("thumbnail")) {
-                //     imageSource = responseJSON.thumbnail
-                // }
                 let imageSource = retrieveOrDefault(responseJSON, "thumbnail", "images/360x360.png")
                 let image = document.createElement("img")
                 image.setAttribute("src", imageSource)
