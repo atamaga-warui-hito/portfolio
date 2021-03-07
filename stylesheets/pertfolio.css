@@ -1,4 +1,20 @@
 #contents_container {
+    width: 80%;
     display: flex;
     align-items: stretch;
+}
+
+#contents_container > div {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.column > div {
+    margin-bottom: 2em;
+}
+
+.thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
 }
