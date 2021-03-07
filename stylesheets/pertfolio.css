@@ -1,0 +1,4 @@
+#contents_container {
+    display: flex;
+    align-items: stretch;
+}
