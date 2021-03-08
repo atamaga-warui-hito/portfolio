@@ -24,10 +24,18 @@ function State(contentsList, stateEventHandler) {
             .then(response => {
                 return response.json()
             }).then(responseJSON => {
-                let imageSource = retrieveOrDefault(responseJSON, "thumbnail", "images/360x360.png")
+                let defaultImageSource = {
+                    "src": "images/360x360.png",
+                    "width": 360,
+                    "height": 360
+                }
+                let imageSource = retrieveOrDefault(responseJSON, "thumbnail", defaultImageSource)
                 let image = document.createElement("img")
-                image.setAttribute("src", imageSource)
+                image.setAttribute("src", imageSource.src)
+                image.setAttribute("width", imageSource.width)
+                image.setAttribute("height", imageSource.height)
                 image.setAttribute("class", "thumbnail")
+                image.setAttribute("load", "lazy")
 
                 let thumbnail = document.createElement("div")
                 thumbnail.appendChild(image)

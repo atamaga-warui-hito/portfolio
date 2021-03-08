@@ -1,6 +1,10 @@
 {
     "title": "test1",
-    "thumbnail": "images/360x240.png",
+    "thumbnail": {
+        "src": "images/360x240.png",
+        "width": 360,
+        "height": 240
+    },
     "description": "test dayo~. test dayo~. test dayo~. test dayo~. test dayo~. test dayo~. test dayo~. test dayo~. test dayo~. test dayo~.",
     "externalLink": "https://www.biacco42.info/"
 }
