@@ -5,7 +5,7 @@ let state
 function State(contentsList, stateEventHandler) {
     this.contentsList = contentsList
     this.appendingIndex = 0
-    inflateContents(contentsList, 4)
+    inflateContents(contentsList, 3)
 
     function inflateContents(contentsList, columnCount) {
         contentsList.forEach((contentURL, index) => {
