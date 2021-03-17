@@ -4,7 +4,9 @@ let state
 
 function State(contentsList, stateEventHandler) {
     this.contentsList = contentsList
-    this.appendingIndex = 0
+    this.contents = []
+    this.page = 1
+
     inflateContents(contentsList, 3)
 
     function inflateContents(contentsList, columnCount) {
