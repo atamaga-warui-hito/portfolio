@@ -4,6 +4,7 @@ let state
 
 function State(contentsList, stateEventHandler) {
     this.contentsList = contentsList
+    this.contents = []
     this.pageNum = 1
     inflateContents(contentsList, 16, 3)
 
