@@ -22,8 +22,13 @@
 
 .fadein {
     opacity: 0;
-    transform: translate(0, 1em);
-    transition: 300ms;
+    transition: 400ms;
+    transition-timing-function: cubic-bezier(1, -0.1, 0.2, 1);
+}
+
+.upin {
+    transform: translate(0, 1.5em);
+    transition: 400ms;
     transition-timing-function: ease-in-out;
 }
 

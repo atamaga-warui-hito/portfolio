@@ -123,6 +123,7 @@ class State {
         contentNode.appendChild(thumbnail)
         contentNode.appendChild(label)
         contentNode.setAttribute("class", "fadein")
+        contentNode.classList.add("upin")
         this.intersectionObserver.observe(contentNode)
         return contentNode
     }
