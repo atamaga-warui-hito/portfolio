@@ -39,7 +39,7 @@ class State {
     onResize() {
         const newCols = State.numberOfCols()
         if (newCols != this.cols) {
-            this
+            this.intersectionObserver = State.createIntersectionObserver()
             this.cols = newCols
             this.inflateContents(this.contentsList, 16, this.cols, this.pageNum)
         }
