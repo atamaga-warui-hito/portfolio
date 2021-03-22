@@ -46,10 +46,8 @@ class State {
     }
 
     inflateContents(contentsList, contentsNum, cols, pageNum) {
-        let contentsContainer = document.getElementById("contents_container")
-        while (contentsContainer.firstChild) {
-            contentsContainer.removeChild(contentsContainer.firstChild)
-        }
+        let contentsWrapper = document.getElementById("contents_wrapper")
+        contentsWrapper.classList.add("disappear")
 
         const colsDOM = Util.range(0, cols, 1).map(_ => {
             const column = document.createElement("div")
@@ -67,12 +65,20 @@ class State {
                 let columnDOM = colsDOM[index % cols]
                 columnDOM.appendChild(this.getContentDOM(content))
             })
-
+            
+            let contentsWrapper = document.createElement("div")
+            contentsWrapper.id = "contents_wrapper"
             colsDOM.forEach(colDOM => {
                 let columnWrapper = document.createElement("div")
                 columnWrapper.appendChild(colDOM)
-                contentsContainer.appendChild(columnWrapper)
+                contentsWrapper.appendChild(columnWrapper)
             })
+
+            let contentsContainer = document.getElementById("contents_container")
+            while (contentsContainer.firstChild) {
+                contentsContainer.removeChild(contentsContainer.firstChild)
+            }
+            contentsContainer.appendChild(contentsWrapper)
         })
     }
 
