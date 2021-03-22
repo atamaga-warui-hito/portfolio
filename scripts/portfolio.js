@@ -58,8 +58,8 @@ class State {
             return column
         })
 
-        const conetntsPromises = contentsList.slice(pageNum * contentsNum, (pageNum + 1) * contentsNum).map(contentURL => {
-            return this.getContent(contentURL)
+        const conetntsPromises = contentsList.slice(pageNum * contentsNum, (pageNum + 1) * contentsNum).map(contentDesc => {
+            return this.getContent(contentDesc.content)
         })
 
         Promise.all(conetntsPromises).then(contents => {
