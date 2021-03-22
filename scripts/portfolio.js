@@ -9,12 +9,20 @@ class State {
         this.contentsList = contentsList
         this.contentsCacheDict = {}
         this.pageNum = 0
-        this.cols = State.numberOfCols()
-        this.inflateContents(contentsList, 16, this.cols, this.pageNum)
+        this.onResize()
     }
 
     static numberOfCols() {
-        return 1000 < window.innerWidth ? 3 : 1
+        const viewportWidth = window.innerWidth
+        return 1000 < viewportWidth ? 3 : viewportWidth < 599 ? 1 : 2
+    }
+
+    onResize() {
+        const newCols = State.numberOfCols()
+        if (newCols != this.cols) {
+            this.cols = newCols
+            this.inflateContents(this.contentsList, 16, this.cols, this.pageNum)
+        }
     }
 
     inflateContents(contentsList, contentsNum, cols, pageNum) {
@@ -106,6 +114,10 @@ window.onload = (_) => {
         .then(responseJSON => {
             onContentsListReceived(responseJSON)
         })
+}
+
+window.onresize = (_) => {
+    state.onResize()
 }
 
 function onContentsListReceived(contentsList) {
