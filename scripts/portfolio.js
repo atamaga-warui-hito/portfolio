@@ -23,8 +23,6 @@ class State {
             contentsContainer.removeChild(contentsContainer.firstChild)
         }
 
-        let colHeights = [0, 0, 0]
-
         const colsDOM = Util.range(0, cols, 1).map(_ => {
             const column = document.createElement("div")
             column.setAttribute("class", "column")
@@ -37,12 +35,8 @@ class State {
         })
 
         Promise.all(conetntsPromises).then(contents => {
-            contents.forEach(content => {
-                const shortColumnIndex = colHeights.indexOf(Math.min(...colHeights))
-                let columnDOM = colsDOM[shortColumnIndex]
-
-                let imageSource = Util.retrieveOrDefault(content, "thumbnail", { "height": 360 })
-                colHeights[shortColumnIndex] += imageSource.height
+            contents.forEach((content, index) => {
+                let columnDOM = colsDOM[index % cols]
                 columnDOM.appendChild(this.getContentDOM(content))
             })
 
