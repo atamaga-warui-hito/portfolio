@@ -15,7 +15,7 @@ header {
     margin: 0;
     display: flex;
     align-items: stretch;
-    transition: 150ms;
+    transition: 100ms;
 }
 
 #contents_wrapper.disappear {
