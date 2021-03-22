@@ -9,6 +9,8 @@ class State {
         this.contentsList = contentsList
         this.contentsCacheDict = {}
         this.pageNum = 0
+
+        this.intersectionObserver = State.createIntersectionObserver()
         this.onResize()
     }
 
@@ -17,9 +19,27 @@ class State {
         return 1000 < viewportWidth ? 3 : viewportWidth < 599 ? 1 : 2
     }
 
+    static createIntersectionObserver() {
+        const intersectionHandler = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("shown")
+                }
+            })
+        }
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.4
+        }
+
+        return new IntersectionObserver(intersectionHandler, options)
+    }
+
     onResize() {
         const newCols = State.numberOfCols()
         if (newCols != this.cols) {
+            this
             this.cols = newCols
             this.inflateContents(this.contentsList, 16, this.cols, this.pageNum)
         }
@@ -102,6 +122,8 @@ class State {
         let contentNode = document.createElement("div")
         contentNode.appendChild(thumbnail)
         contentNode.appendChild(label)
+        contentNode.setAttribute("class", "fadein")
+        this.intersectionObserver.observe(contentNode)
         return contentNode
     }
 }

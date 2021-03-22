@@ -5,12 +5,12 @@
     align-items: stretch;
 }
 
-#contents_container > div {
+#contents_container>div {
     padding-left: 1em;
     padding-right: 1em;
 }
 
-.column > div {
+.column>div {
     margin-bottom: 2em;
 }
 
@@ -18,4 +18,16 @@
     width: 100%;
     height: auto;
     display: block;
+}
+
+.fadein {
+    opacity: 0;
+    transform: translate(0, 1em);
+    transition: 300ms;
+    transition-timing-function: ease-in-out;
+}
+
+.fadein.shown {
+    opacity: 1;
+    transform: translate(0, 0);
 }
