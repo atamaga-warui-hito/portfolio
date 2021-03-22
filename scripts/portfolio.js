@@ -58,11 +58,11 @@ class State {
             return column
         })
 
-        const conetntsPromises = contentsList.slice(pageNum * contentsNum, (pageNum + 1) * contentsNum).map(contentDesc => {
-            return this.getContent(contentDesc.content)
+        const contentsPromises = contentsList.slice(pageNum * contentsNum, (pageNum + 1) * contentsNum).map(contentDesc => {
+            return this.getContent(contentDesc)
         })
 
-        Promise.all(conetntsPromises).then(contents => {
+        Promise.all(contentsPromises).then(contents => {
             contents.forEach((content, index) => {
                 let columnDOM = colsDOM[index % cols]
                 columnDOM.appendChild(this.getContentDOM(content))
@@ -76,16 +76,18 @@ class State {
         })
     }
 
-    getContent(url) {
-        if (url in this.contentsCacheDict) {
-            return this.contentsCacheDict[url]
+    getContent(contentDesc) {
+        if (contentDesc.contentPath in this.contentsCacheDict) {
+            return this.contentsCacheDict[contentDesc.contentPath]
         }
 
-        return fetch(url)
+        return fetch(contentDesc.contentPath)
             .then(response => {
                 return response.json()
             }).then(content => {
-                this.contentsCacheDict[url] = content
+                content.author = contentDesc.author
+                content.tag = contentDesc.tag
+                this.contentsCacheDict[contentDesc] = content
                 return content
             })
     }
@@ -114,10 +116,28 @@ class State {
         let descriptionString = Util.retrieveOrDefault(content, "description", "")
         let description = document.createElement("p")
         description.textContent = descriptionString
+        description.setAttribute("class", "description")
+
+        let authorsString = Util.retrieveOrDefault(content, "author", []).join(", ")
+        let authors = document.createElement("p")
+        authors.textContent = authorsString
+        authors.setAttribute("class", "author")
+
+        let tagsList = Util.retrieveOrDefault(content, "tag", [])
+        let tags = document.createElement("div")
+        tags.style.display = "flex"
+        tagsList.forEach(tagString => {
+            let tag = document.createElement("p")
+            tag.textContent = tagString
+            tag.setAttribute("class", tagString)
+            tags.appendChild(tag)
+        })
 
         let label = document.createElement("div")
         label.appendChild(title)
         label.appendChild(description)
+        label.appendChild(authors)
+        label.appendChild(tags)
 
         let contentNode = document.createElement("div")
         contentNode.appendChild(thumbnail)

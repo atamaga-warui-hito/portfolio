@@ -1,111 +1,111 @@
 [
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Biacco42"],
         "tag": ["product", "keyboard"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Tiby", "Biacco42"],
         "tag": ["report"]
     },
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test3.json",
+        "contentPath": "contents/biacco42_test3.json",
         "author": ["Biacco42"],
         "tag": ["illust"]
     },
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Biacco42"],
         "tag": ["blog", "illust"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Biacco42", "Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Tiby"],
         "tag": ["blog"]
     },
     {
-        "content": "contents/biacco42_test3.json",
+        "contentPath": "contents/biacco42_test3.json",
         "author": ["Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Biacco42"],
         "tag": ["illust"]
     },
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test3.json",
+        "contentPath": "contents/biacco42_test3.json",
         "author": ["Biacco42"],
         "tag": ["product", "keyboard"]
     },
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Tiby", "Biacco42"],
         "tag": ["report"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test3.json",
+        "contentPath": "contents/biacco42_test3.json",
         "author": ["Biacco42"],
         "tag": ["product", "keyboard"]
     },
     {
-        "content": "contents/biacco42_test3.json",
+        "contentPath": "contents/biacco42_test3.json",
         "author": ["Biacco42"],
         "tag": ["blog", "3d printer"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Biacco42", "Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Biacco42"],
         "tag": ["blog", "illust"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": ["Tiby"],
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test2.json",
+        "contentPath": "contents/biacco42_test2.json",
         "author": "Biacco42",
         "tag": ["product"]
     },
     {
-        "content": "contents/biacco42_test3.json",
+        "contentPath": "contents/biacco42_test3.json",
         "author": ["Tiby"],
         "tag": ["blog", "poet"]
     },
     {
-        "content": "contents/biacco42_test1.json",
+        "contentPath": "contents/biacco42_test1.json",
         "author": ["Biacco42", "Tiby"],
         "tag": ["product"]
     }
