@@ -93,6 +93,7 @@ class State {
             }).then(content => {
                 content.author = contentDesc.author
                 content.tag = contentDesc.tag
+                content.published = contentDesc.publishedOn
                 this.contentsCacheDict[contentDesc] = content
                 return content
             })
