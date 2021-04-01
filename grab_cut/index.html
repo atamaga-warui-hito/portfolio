@@ -4,41 +4,41 @@
 </head>
 
 <script>
-	let canvas1_1
-	let canvas1_2
+	let canvas1Bottom
+	let canvas1Top
 	let canvas2
-	let window_x = 0;
-	let window_y = 0;
-	let window_w = 0;
-	let window_h = 0;
-	let click_x = 0;
-	let click_y = 0;
-	let file_name = "sample.png";
+	let windowX = 0;
+	let windowY = 0;
+	let windowW = 0;
+	let windowH = 0;
+	let clickX = 0;
+	let clickY = 0;
+	let fileName = "sample.png";
 	const API_SERVER = 'https://awh.tiby.work:1443';
 
-	function download_img() {
+	function downloadImg() {
 		if (canvas2) {
 			let link = document.createElement("a");
 			link.href = canvas2.toDataURL("image/png");
-			let dl_file_name = "sample.png";
-			let pos = file_name.lastIndexOf('.');
+			let dlFileName = "sample.png";
+			let pos = fileName.lastIndexOf('.');
 			if (pos != -1) {
-				dl_file_name = file_name.slice(0, pos) + "_edit.png";
+				dlFileName = fileName.slice(0, pos) + "_edit.png";
 			}
-			link.download = dl_file_name;
+			link.download = dlFileName;
 			link.click();
 		}
 	}
-	function load_to_canvas(files, img_1, canvas_1_1, canvas_1_2, canvas_2) {
-		canvas1_1 = document.getElementById(canvas_1_1);
-		canvas1_2 = document.getElementById(canvas_1_2);
-		canvas2 = document.getElementById(canvas_2);
+	function loadToCanvas(files, img1, canvas1B, canvas1T, canvasR) {
+		canvas1Bottom = document.getElementById(canvas1B);
+		canvas1Top = document.getElementById(canvas1T);
+		canvas2 = document.getElementById(canvasR);
 
-		canvas1_2.addEventListener('mousemove', onMove, false);
-		canvas1_2.addEventListener('mousedown', onClick, false);
+		canvas1Top.addEventListener('mousemove', onMove, false);
+		canvas1Top.addEventListener('mousedown', onClick, false);
 
-		let rect_mode_form = document.getElementById("rect_mode_form");
-		let radioNodeList = rect_mode_form.elements['rect_mode'];
+		let rectModeForm = document.getElementById("rectModeForm");
+		let radioNodeList = rectModeForm.elements['rectMode'];
 		for (let elem of radioNodeList) {
 			let checkValue = elem.value;
 			switch(checkValue) {
@@ -56,36 +56,36 @@
 		reader.onloadend = function (event) {
 			image.src = reader.result;
 			image.onload = function () {
-				canvas1_1.width = image.width;
-				canvas1_1.height = image.height;
-				canvas1_2.width = image.width;
-				canvas1_2.height = image.height;
+				canvas1Bottom.width = image.width;
+				canvas1Bottom.height = image.height;
+				canvas1Top.width = image.width;
+				canvas1Top.height = image.height;
 				container.style.height = image.height;
-				window_w = image.width;
-				window_h = image.height;
-				canvas2.style.left = canvas1_2.width;
+				windowW = image.width;
+				windowH = image.height;
+				canvas2.style.left = canvas1Top.width;
 			}
-			document.getElementById(img_1).setAttribute('src', event.target.result);
+			document.getElementById(img1).setAttribute('src', event.target.result);
 
 		}
 		reader.readAsDataURL(files[0]);
-		file_name = files[0].name
+		fileName = files[0].name
 	}
 
 	function onClick(e) {
-		if (canvas1_2.getContext) {
+		if (canvas1Top.getContext) {
 			if (e.buttons == 1) {	//左クリック
-				let mode = document.getElementById("rect_mode_form");
-				let radioNodeList = mode.elements['rect_mode'];
+				let mode = document.getElementById("rectModeForm");
+				let radioNodeList = mode.elements['rectMode'];
 				let checkValue = radioNodeList.value;
 				if (checkValue == 'rect') {
-					let ctx = canvas1_1.getContext('2d');
+					let ctx = canvas1Bottom.getContext('2d');
 					let rect = e.target.getBoundingClientRect();
-					click_x = ~~(e.clientX - rect.left);
-					click_y = ~~(e.clientY - rect.top);
+					clickX = ~~(e.clientX - rect.left);
+					clickY = ~~(e.clientY - rect.top);
 				}
 				else {
-					let ctx = canvas1_2.getContext('2d');
+					let ctx = canvas1Top.getContext('2d');
 					let rect = e.target.getBoundingClientRect();
 					let cx = ~~(e.clientX - rect.left);
 					let cy = ~~(e.clientY - rect.top);
@@ -108,27 +108,26 @@
 	};
 	function onMove(e) {
 		if (e.buttons == 1) {
-			let mode = document.getElementById("rect_mode_form");
-			let radioNodeList = mode.elements['rect_mode'];
+			let mode = document.getElementById("rectModeForm");
+			let radioNodeList = mode.elements['rectMode'];
 			let checkValue = radioNodeList.value;
 			if (checkValue == 'rect') {
-				let ctx = canvas1_1.getContext('2d');
+				let ctx = canvas1Bottom.getContext('2d');
 				let rect = e.target.getBoundingClientRect();
-				let mouse_x = ~~(e.clientX - rect.left);
-				let mouse_y = ~~(e.clientY - rect.top);
+				let mouseX = ~~(e.clientX - rect.left);
+				let mouseY = ~~(e.clientY - rect.top);
 
-				window_x = Math.min(click_x, mouse_x)
-				window_y = Math.min(click_y, mouse_y)
-				window_w = Math.abs(click_x - mouse_x)
-				window_h = Math.abs(click_y - mouse_y)
+				windowX = Math.min(clickX, mouseX)
+				windowY = Math.min(clickY, mouseY)
+				windowW = Math.abs(clickX - mouseX)
+				windowH = Math.abs(clickY - mouseY)
 
-				ctx.clearRect(0, 0, canvas1_2.width, canvas1_2.height);
-				//ctx.drawImage(image_copy, 0, 0)
+				ctx.clearRect(0, 0, canvas1Top.width, canvas1Top.height);
 				ctx.strokeStyle = "rgb(0, 0, 255)";
-				ctx.strokeRect(window_x, window_y, window_w, window_h);
+				ctx.strokeRect(windowX, windowY, windowW, windowH);
 			}
 			else {
-				let ctx = canvas1_2.getContext('2d');
+				let ctx = canvas1Top.getContext('2d');
 				let rect = e.target.getBoundingClientRect();
 				let cx = ~~(e.clientX - rect.left);
 				let cy = ~~(e.clientY - rect.top);
@@ -150,11 +149,11 @@
 		}
 	};
 
-	function rect_mode_change(rect_mode) {
-		let mode = document.getElementById(rect_mode);
-		radioNodeList = mode.elements['rect_mode'];
+	function rectModeChange(rectMode) {
+		let mode = document.getElementById(rectMode);
+		radioNodeList = mode.elements['rectMode'];
 		let checkValue = radioNodeList.value;
-		let ctx = canvas1_2.getContext('2d');
+		let ctx = canvas1Top.getContext('2d');
 		switch (checkValue) {
 			case 'erase':
 				ctx.globalCompositeOperation = "destination-out";
@@ -164,25 +163,25 @@
 				break;
 		}
 	}
-	function send_data() {
-		if (canvas1_2) {
-			let upload_button = document.getElementById("upload_button");
-			upload_button.setAttribute("disabled", true);
-			upload_button.style.color = "gray";
+	function sendData() {
+		if (canvas1Top) {
+			let uploadButton = document.getElementById("uploadButton");
+			uploadButton.setAttribute("disabled", true);
+			uploadButton.style.color = "gray";
 
-			let output_image_size_mode = 0
-			const origin_size = document.getElementById("origin_size");
-			if (origin_size.checked) output_image_size_mode = 1;
+			let outputImageSizeMode = 0
+			const originSize = document.getElementById("originSize");
+			if (originSize.checked) outputImageSizeMode = 1;
 
-			const origin_data = document.getElementById("img1").src
-			const pic_data = canvas1_2.toDataURL("image/png");
-			const reduct_noise = document.getElementById("noise").checked
+			const originData = document.getElementById("img1").src
+			const picData = canvas1Top.toDataURL("image/png");
+			const reductNoise = document.getElementById("noise").checked
 			const param = {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json; charset=utf-8"
 				},
-				body: JSON.stringify({origin_image:origin_data, mask_data:pic_data, reduct_noise:reduct_noise, output_size:output_image_size_mode, wx:window_x, wy:window_y, ww:window_w, wh:window_h})
+				body: JSON.stringify({origin_image:originData, mask_data:picData, reduct_noise:reductNoise, output_size:outputImageSizeMode, wx:windowX, wy:windowY, ww:windowW, wh:windowH})
 			};
 			const url = API_SERVER + '/grab_cut';
 			sendServer(url, param);
@@ -215,13 +214,13 @@
 					console.log("送信に失敗しました");
 					
 				}
-				let upload_button = document.getElementById("upload_button");
-				upload_button.removeAttribute("disabled");
-				upload_button.style.color = "black";
+				let uploadButton = document.getElementById("uploadButton");
+				uploadButton.removeAttribute("disabled");
+				uploadButton.style.color = "black";
 			})
 			.catch((error) => {
-				upload_button.removeAttribute("disabled");
-				upload_button.style.color = "black";
+				uploadButton.removeAttribute("disabled");
+				uploadButton.style.color = "black";
 				alert(error)
 			});
 	}
@@ -232,11 +231,11 @@
 		margin-top: 2em;
 		margin-left: 2em;
 	}
-	#canvas1_1 {
+	#canvas1Bottom {
 		position: absolute;
 		z-index: 2;
 	}
-    #canvas1_2 {
+    #canvas1Top {
 		position: absolute;
     	z-index: 3;
     }
@@ -255,10 +254,10 @@
 		position: relative;
 		margin-top: 1em;
 	}
-	#download_img {
+	#downloadImg {
 		margin-left: 2em;
 	}
-	#how_to_use {
+	#howToUse {
 		margin-left: 2em;
 	}
 	#img1 {
@@ -268,10 +267,10 @@
 	#noise {
 		margin-left: 2em;
 	}
-	#rect_size {
+	#rectSize {
 		margin-left: 2em;
 	}
-	#select_file {
+	#selectFile {
 		margin:1em;
 	}
 	.twitter-share-button {
@@ -283,32 +282,32 @@
 </style>
 
 <body>
-	<input type="file" id="select_file" accept="image/png, image/jpeg"
-		onChange="load_to_canvas(this.files, 'img1', 'canvas1_1', 'canvas1_2', 'canvas2')"></input>
+	<input type="file" id="selectFile" accept="image/png, image/jpeg"
+		onChange="loadToCanvas(this.files, 'img1', 'canvas1Bottom', 'canvas1Top', 'canvas2')"></input>
 	
-	<form id="rect_mode_form" onChange="rect_mode_change('rect_mode_form')"">
-		<label><input name="rect_mode" type="radio" value="rect" checked>矩形</label>
-		<label><input name="rect_mode" type="radio" value="bg">背景</label>
-		<label><input name="rect_mode" type="radio" value="fg">前景</label>
-		<label><input name="rect_mode" type="radio" value="erase">消しゴム</label>	
+	<form id="rectModeForm" onChange="rectModeChange('rectModeForm')"">
+		<label><input name="rectMode" type="radio" value="rect" checked>矩形</label>
+		<label><input name="rectMode" type="radio" value="bg">背景</label>
+		<label><input name="rectMode" type="radio" value="fg">前景</label>
+		<label><input name="rectMode" type="radio" value="erase">消しゴム</label>	
 	</form>
-	<button id="upload_button" onclick="send_data()">前景抽出！</button>
+	<button id="uploadButton" onclick="sendData()">前景抽出！</button>
 	<input type="checkbox" id="noise" name="noise">
 	<label for="noise">ノイズ除去</label>
-	<input type="radio" id="rect_size" name="rect_or_origin" value="rect_size" checked>
-    <label for="rect_size">矩形抽出</label>
-    <input type="radio" id="origin_size" name="rect_or_origin" value="origin_size">
-	<label for="origin_size">元サイズ</label>
-	<button id ="download_img" onclick="download_img()">ダウンロード</button>
+	<input type="radio" id="rectSize" name="rectOrOrigin" value="rectSize" checked>
+    <label for="rectSize">矩形抽出</label>
+    <input type="radio" id="originSize" name="rectOrOrigin" value="originSize">
+	<label for="originSize">元サイズ</label>
+	<button id ="downloadImg" onclick="downloadImg()">ダウンロード</button>
 
 	<div id="container">
 		<img id="img1"></img>
-		<canvas id="canvas1_1"></canvas>
-		<canvas id="canvas1_2"></canvas>
+		<canvas id="canvas1Bottom"></canvas>
+		<canvas id="canvas1Top"></canvas>
 		<canvas id="canvas2"></canvas>
 	</div>
 
-	<div id="how_to_use">
+	<div id="howToUse">
 		<h2>how to use</h2>
 		<ol>
 			<li>ファイルを選択（png or jpeg）。</li>
