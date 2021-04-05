@@ -210,9 +210,9 @@
 			let mouseX = ~~(touch.pageX - rect.left);
 			let mouseY = ~~(touch.pageY - rect.top);
 			if (mouseX < 0) mouseX = 0;
-			else if (mouseX > ctx.width) mouseX = ctx.width - 1;
+			else if (mouseX >= rect.width) mouseX = rect.width - 1;
 			if (mouseY < 0) mouseY = 0;
-			else if (mouseY > ctx.height) mouseY = ctx.height - 1;
+			else if (mouseY >= rect.height) mouseY = rect.height - 1;
 
 			windowX = Math.min(clickX, mouseX)
 			windowY = Math.min(clickY, mouseY)
