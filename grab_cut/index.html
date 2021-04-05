@@ -163,14 +163,17 @@
 			let mode = document.getElementById("rectModeForm");
 			let radioNodeList = mode.elements['rectMode'];
 			let checkValue = radioNodeList.value;
-			let ctx = canvas1Top.getContext('2d');
-			let rect = e.target.getBoundingClientRect();
+			
 			let touch = e.changedTouches[0];
 			if (checkValue == 'rect') {
+				let ctx = canvas1Bottom.getContext('2d');
+				let rect = e.target.getBoundingClientRect();
 				clickX = ~~(touch.pageX - rect.left);
 				clickY = ~~(touch.pageY - rect.top);
 			}
 			else {
+				let ctx = canvas1Top.getContext('2d');
+				let rect = e.target.getBoundingClientRect();
 				let cx = ~~(touch.pageX - rect.left);
 				let cy = ~~(touch.pageY - rect.top);
 				let radius = 1;
@@ -182,6 +185,9 @@
 				else if (checkValue == 'fg') {
 					ctx.strokeStyle = "rgb(255, 255, 255)";
 					ctx.fillStyle = "rgb(255, 255, 255)";
+				}
+				else if (checkValue == 'erase') {
+					ctx.globalCompositeOperation = "destination-out";
 				}
 				ctx.beginPath();
 				ctx.arc(cx, cy, radius, 0, 2 * Math.PI, true);
@@ -195,14 +201,18 @@
 		let mode = document.getElementById("rectModeForm");
 		let radioNodeList = mode.elements['rectMode'];
 		let checkValue = radioNodeList.value;
-		let ctx = canvas1Bottom.getContext('2d');
-		let rect = e.target.getBoundingClientRect();
+		
 		let touch = e.changedTouches[0];
 
 		if (checkValue == 'rect') {
-			
+			let ctx = canvas1Bottom.getContext('2d');
+			let rect = e.target.getBoundingClientRect();
 			let mouseX = ~~(touch.pageX - rect.left);
 			let mouseY = ~~(touch.pageY - rect.top);
+			if (mouseX < 0) mouseX = 0;
+			else if (mouseX > ctx.width) mouseX = ctx.width - 1;
+			if (mouseY < 0) mouseY = 0;
+			else if (mouseY > ctx.height) mouseY = ctx.height - 1;
 
 			windowX = Math.min(clickX, mouseX)
 			windowY = Math.min(clickY, mouseY)
@@ -214,6 +224,8 @@
 			ctx.strokeRect(windowX, windowY, windowW, windowH);
 		}
 		else {
+			let ctx = canvas1Top.getContext('2d');
+			let rect = e.target.getBoundingClientRect();
 			let cx = ~~(touch.pageX - rect.left);
 			let cy = ~~(touch.pageY - rect.top);
 			let radius = 1;
@@ -400,7 +412,7 @@
 			<li>帰ってきた画像を見ながら、消したい部分は背景ボタン（黒線）、残したい部分は前景ボタン（白線）を押してから左側画像の該当箇所をなぞります。</li>
 			<li>3と4を繰り返し、満足したらダウンロードボタンを押して切り抜きデータを保存します。</li>
 		</ol>
-		*1 PCブラウザの操作を前提にしています。<br>
+		*1 PCブラウザの操作を推奨しています。<br>
 		*2 画像によってはうまく処理できないことがありますが、ペイントで保存し直すとなおる場合があります。<br>
 		*3 画像サイズが大きすぎると問題が発生することがあるようです。
 
