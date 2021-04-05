@@ -163,17 +163,16 @@
 			let mode = document.getElementById("rectModeForm");
 			let radioNodeList = mode.elements['rectMode'];
 			let checkValue = radioNodeList.value;
+			let ctx = canvas1Top.getContext('2d');
+			let rect = e.target.getBoundingClientRect();
+			let touch = e.changedTouches[0];
 			if (checkValue == 'rect') {
-				let ctx = canvas1Bottom.getContext('2d');
-				let rect = e.target.getBoundingClientRect();
-				clickX = ~~(e.clientX - rect.left);
-				clickY = ~~(e.clientY - rect.top);
+				clickX = ~~(touch.pageX - rect.left);
+				clickY = ~~(touch.pageY - rect.top);
 			}
 			else {
-				let ctx = canvas1Top.getContext('2d');
-				let rect = e.target.getBoundingClientRect();
-				let cx = ~~(e.clientX - rect.left);
-				let cy = ~~(e.clientY - rect.top);
+				let cx = ~~(touch.pageX - rect.left);
+				let cy = ~~(touch.pageY - rect.top);
 				let radius = 1;
 
 				if (checkValue == 'bg') {
@@ -196,11 +195,14 @@
 		let mode = document.getElementById("rectModeForm");
 		let radioNodeList = mode.elements['rectMode'];
 		let checkValue = radioNodeList.value;
+		let ctx = canvas1Bottom.getContext('2d');
+		let rect = e.target.getBoundingClientRect();
+		let touch = e.changedTouches[0];
+
 		if (checkValue == 'rect') {
-			let ctx = canvas1Bottom.getContext('2d');
-			let rect = e.target.getBoundingClientRect();
-			let mouseX = ~~(e.clientX - rect.left);
-			let mouseY = ~~(e.clientY - rect.top);
+			
+			let mouseX = ~~(touch.pageX - rect.left);
+			let mouseY = ~~(touch.pageY - rect.top);
 
 			windowX = Math.min(clickX, mouseX)
 			windowY = Math.min(clickY, mouseY)
@@ -212,10 +214,8 @@
 			ctx.strokeRect(windowX, windowY, windowW, windowH);
 		}
 		else {
-			let ctx = canvas1Top.getContext('2d');
-			let rect = e.target.getBoundingClientRect();
-			let cx = ~~(e.clientX - rect.left);
-			let cy = ~~(e.clientY - rect.top);
+			let cx = ~~(touch.pageX - rect.left);
+			let cy = ~~(touch.pageY - rect.top);
 			let radius = 1;
 
 
