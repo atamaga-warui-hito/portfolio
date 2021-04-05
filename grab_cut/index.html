@@ -14,6 +14,7 @@
 	let clickX = 0;
 	let clickY = 0;
 	let fileName = "sample.png";
+	let supportTouch = 'ontouchend' in document;
 	const API_SERVER = 'https://awh.tiby.work:1443';
 
 	function downloadImg() {
@@ -34,8 +35,14 @@
 		canvas1Top = document.getElementById(canvas1T);
 		canvas2 = document.getElementById(canvasR);
 
-		canvas1Top.addEventListener('mousemove', onMove, false);
-		canvas1Top.addEventListener('mousedown', onClick, false);
+		if (supportTouch) {
+			canvas1Top.addEventListener('touchmove', onTouchMove, false);
+			canvas1Top.addEventListener('touchstart', onTouchClick, false);
+		}
+		else {
+			canvas1Top.addEventListener('mousemove', onMove, false);
+			canvas1Top.addEventListener('mousedown', onClick, false);
+		}
 
 		let rectModeForm = document.getElementById("rectModeForm");
 		let radioNodeList = rectModeForm.elements['rectMode'];
@@ -148,6 +155,81 @@
 				ctx.arc(cx, cy, radius, 0, 2 * Math.PI, true);
 				ctx.fill();
 			}
+		}
+	};
+
+	function onTouchClick(e) {
+		if (canvas1Top.getContext) {
+			let mode = document.getElementById("rectModeForm");
+			let radioNodeList = mode.elements['rectMode'];
+			let checkValue = radioNodeList.value;
+			if (checkValue == 'rect') {
+				let ctx = canvas1Bottom.getContext('2d');
+				let rect = e.target.getBoundingClientRect();
+				clickX = ~~(e.clientX - rect.left);
+				clickY = ~~(e.clientY - rect.top);
+			}
+			else {
+				let ctx = canvas1Top.getContext('2d');
+				let rect = e.target.getBoundingClientRect();
+				let cx = ~~(e.clientX - rect.left);
+				let cy = ~~(e.clientY - rect.top);
+				let radius = 1;
+
+				if (checkValue == 'bg') {
+					ctx.strokeStyle = "rgb(30, 30, 30)";
+					ctx.fillStyle = "rgb(30, 30, 30)";
+				}
+				else if (checkValue == 'fg') {
+					ctx.strokeStyle = "rgb(255, 255, 255)";
+					ctx.fillStyle = "rgb(255, 255, 255)";
+				}
+				ctx.beginPath();
+				ctx.arc(cx, cy, radius, 0, 2 * Math.PI, true);
+				ctx.fill();
+			}
+
+		}
+	};
+	function onTouchMove(e) {
+		e.preventDefault();
+		let mode = document.getElementById("rectModeForm");
+		let radioNodeList = mode.elements['rectMode'];
+		let checkValue = radioNodeList.value;
+		if (checkValue == 'rect') {
+			let ctx = canvas1Bottom.getContext('2d');
+			let rect = e.target.getBoundingClientRect();
+			let mouseX = ~~(e.clientX - rect.left);
+			let mouseY = ~~(e.clientY - rect.top);
+
+			windowX = Math.min(clickX, mouseX)
+			windowY = Math.min(clickY, mouseY)
+			windowW = Math.abs(clickX - mouseX)
+			windowH = Math.abs(clickY - mouseY)
+
+			ctx.clearRect(0, 0, canvas1Top.width, canvas1Top.height);
+			ctx.strokeStyle = "rgb(0, 0, 255)";
+			ctx.strokeRect(windowX, windowY, windowW, windowH);
+		}
+		else {
+			let ctx = canvas1Top.getContext('2d');
+			let rect = e.target.getBoundingClientRect();
+			let cx = ~~(e.clientX - rect.left);
+			let cy = ~~(e.clientY - rect.top);
+			let radius = 1;
+
+
+			if (checkValue == 'bg') {
+				ctx.strokeStyle = "rgb(30, 30, 30)";
+				ctx.fillStyle = "rgb(30, 30, 30)";
+			}
+			else if (checkValue == 'fg') {
+				ctx.strokeStyle = "rgb(255, 255, 255)";
+				ctx.fillStyle = "rgb(255, 255, 255)";
+			}
+			ctx.beginPath();
+			ctx.arc(cx, cy, radius, 0, 2 * Math.PI, true);
+			ctx.fill();
 		}
 	};
 
