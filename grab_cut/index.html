@@ -101,6 +101,7 @@
 					let radius = 1;
 					
 					if (checkValue == 'bg') {
+						
 						ctx.strokeStyle = "rgb(30, 30, 30)";
 						ctx.fillStyle = "rgb(30, 30, 30)";
 					}
@@ -185,9 +186,6 @@
 				else if (checkValue == 'fg') {
 					ctx.strokeStyle = "rgb(255, 255, 255)";
 					ctx.fillStyle = "rgb(255, 255, 255)";
-				}
-				else if (checkValue == 'erase') {
-					ctx.globalCompositeOperation = "destination-out";
 				}
 				ctx.beginPath();
 				ctx.arc(cx, cy, radius, 0, 2 * Math.PI, true);
