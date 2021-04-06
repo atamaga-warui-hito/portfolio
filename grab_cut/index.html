@@ -237,6 +237,10 @@
 				ctx.strokeStyle = "rgb(255, 255, 255)";
 				ctx.fillStyle = "rgb(255, 255, 255)";
 			}
+			else if (checkValue == 'erase') {
+				radius = 5;
+				ctx.globalCompositeOperation = "destination-out";
+			}
 			ctx.beginPath();
 			ctx.arc(cx, cy, radius, 0, 2 * Math.PI, true);
 			ctx.fill();
