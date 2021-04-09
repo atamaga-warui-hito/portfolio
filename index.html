@@ -6,19 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'>
-    <link rel='stylesheet' href='stylesheets/pertfolio.css'>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="stylesheets/portfolio.css">
     <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
     <script type="module" src="scripts/portfolio.js"></script>
 </head>
 
 <body>
-    <header>
-        <h1>Hello Portfolio!</h1>
-        <p>authors</p>
-        <p>tags</p>
-    </header>
-    <div id="contents_container"><div id="contents_wrapper"></div></div>
+    <div id="main_view">
+        <header class="bevel">
+            <div class="bevel_content">
+                <h1>atamaga warui hito</h1>
+            </div>
+        </header>
+        <div id="contents_container">
+            <div id="contents_wrapper"></div>
+            <div id="preparing">
+                準備中！
+            </div>
+        </div>
+        <div id="page_indicator_container">
+            <div id="page_indicator"></div>
+        </div>
+    </div>
+    <div id="popup_background">
+        <div id="popup" class="bevel">
+            <div id="popup_content" class="bevel_content"></div>
+        </div>
+    </div>
 </body>
 
 </html>

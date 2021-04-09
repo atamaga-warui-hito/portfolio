@@ -1,0 +1,10 @@
+{
+    "title": "前景抽出",
+    "thumbnail": {
+        "src": "images/tiby_grab_cut.png",
+        "width": 623,
+        "height": 906
+    },
+    "description": "画像から前景を抽出するアプリケーションです。APIサーバはNGINX+Flask+python+OpenCVで動いています。",
+    "externalLink": "https://atamaga-warui-hito.net/grab_cut/"
+}
